@@ -1,0 +1,64 @@
+
+  {% extends 'base3.html' %}
+  {% block content %}
+  <br>
+  <br>
+  {% for boo in booklist %}
+  <div class="w3-content w3-section" style="max-width:500px">
+    {% if boo.user_id.username == request.user.username %}
+    <img class="mySlides" src="https://assets.entrepreneur.com/content/3x2/2000/20191219170611-GettyImages-1152794789.jpeg" style="width:100%">
+    <img class="mySlides" src="https://img.jakpost.net/c/2019/03/02/2019_03_02_66706_1551461528._large.jpg" style="width:100%">
+    <img class="mySlides" src="https://cdn.pixabay.com/photo/2015/06/02/12/59/narrative-794978_960_720.jpg" style="width:100%">
+  </div>
+  {% endif  %}
+  {% endfor %}
+  <h1 style="color: gray;"><center>Your Books</center></h1>
+<div class="condainer">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">BookName</th>
+            <th scope="col">Category</th>
+            <th scope="col">Issue date</th>
+            <th scope="col">End-date</th>
+          </tr>
+        </thead>
+        {% for boo in booklist %}
+        <tbody>
+        {% if boo.user_id.username == request.user.username %}
+          <tr>
+            <th scope="row">{{boo.book_id.id}}</th>
+            <th>{{boo.book_id.book_name}}</th>
+            <th>{{boo.book_id.category}}</th>
+            <th>{{boo.created_at}}</th>
+            <th>{{boo.date_field}}</th>
+          </tr>
+        </tbody>
+        {% endif  %}
+        {% endfor %}
+      </table>     
+</div>
+<style>
+  .mySlides {display:none;}
+</style> 
+<script>
+  var myIndex = 0;
+  carousel();
+  
+  function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+  }
+</script>
+
+{% endblock content %}
+
+  

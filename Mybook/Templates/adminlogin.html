@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Admin Login Page</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="{% static 'css/adminlogin.css' %}" rel="stylesheet">
+    
+</head>
+<!--Coded with love by Mutiullah Samim-->
+<body>
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+						<img src="data:image/png;base64,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" class="brand_logo" alt="Logo">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form action="{% url 'admin_login' %}" method="POST">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="username" class="form-control input_user" value="" placeholder="username">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" name="password" class="form-control input_pass" value="" placeholder="password">
+						</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+					
+					 <button type="submit" name="button" class="btn login_btn">Login</button>
+				   </div>	
+				   {% for message in messages %}
+				   		<h5 style="color: red">{{message}}</h5>
+			   		{% endfor %}		   
+					</form>
+				</div>
+			</div>
+		</div>	
+    </div>
+  
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+
+</html>

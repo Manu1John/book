@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!------ Include the above in your HEAD tag ---------->
+	<script>
+		function myFunction() {
+		  // Declare variables
+		  var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById("myInput");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("myTable");
+		  tr = table.getElementsByTagName("tr");
+		
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+			  txtValue = td.textContent || td.innerText;
+			  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			  } else {
+				tr[i].style.display = "none";
+			  }
+			}
+		  }
+		}
+		</script>
+</head>
+
+
+<body>
+	<div id="wrapper">
+		<nav class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
+			<a class="navbar-brand">ADMIN PANEL</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+				aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+				<ul class="navbar-nav side-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'admin_panel' %}">Book details
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'admin_users' %}">Registered user</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'admin_report' %}">Report</a>
+					</li>
+				</ul>
+				<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+				<ul class="navbar-nav ml-md-auto d-md-flex">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'add' %}">ADD BOOKS</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'admin_logout' %}">LOG OUT</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+        <h1 style="color: blueviolet;">BOOK DETAILS</h1>
+		<table id="myTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Book Name</th>
+					<th>Category</th>
+					<th>Quantity</th>
+					<th>Language</th>
+					<th>Book published</th>
+					<th>pages</th>
+					<th>Author</th>
+					<th>Image</th>
+					<th>ACTIONS</th>
+				</tr>
+			</thead>
+			<tbody class="tbody">
+				{% for book in booklist %}
+				<tr>
+					<th scope="row">{{ book.id }}</th>
+					<td>{{ book.book_name }}</td>
+					<td>{{ book.category }}</td>
+					<td>{{ book.quantity }}</td>
+					<td>{{ book.language }}</td>
+					<td>{{ book.book_published }}</td>
+					<td>{{ book.pages }}</td>
+					<td>{{ book.author }}</td>
+					<td><img src="/img/{{book.image}}" alt="" style="width: 4rem;height: 4rem;"></td>
+					<td>
+						<a href="{% url 'update_books' book.id %}" class="edit" title="Edit" data-toggle="tooltip"><i
+								class="material-icons">&#xE254;</i></a>
+						<form action="{% url 'delete_books' book.id %} " method="GET" style="display: inline;"
+							onsubmit="window.mytest()">
+							{% csrf_token %}
+							<input type="hidden" name="choice" value="{{ book.id }}">
+							<button type="submit"><a id="" class="delete" title="Delete" data-toggle="tooltip"><i
+										class="material-icons">&#xE872;</i></a></button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+	</div>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+
+</html>
+<style>
+	body {
+		background: #f9f9f9;
+	}
+
+	#wrapper {
+		padding: 90px 15px;
+	}
+
+	.navbar-expand-lg .navbar-nav.side-nav {
+		flex-direction: column;
+	}
+
+	.card {
+		margin-bottom: 15px;
+		border-radius: 0;
+		box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
+	}
+
+	.header-top {
+		box-shadow: 0 3px 5px rgba(0, 0, 0, .1)
+	}
+
+	@media(min-width:992px) {
+		#wrapper {
+			margin-left: 200px;
+			padding: 90px 15px 15px;
+		}
+
+		.navbar-nav.side-nav {
+			background: #585f66;
+			box-shadow: 2px 1px 2px rgba(0, 0, 0, .1);
+			position: fixed;
+			top: 56px;
+			flex-direction: column !important;
+			left: 0;
+			width: 200px;
+			overflow-y: auto;
+			bottom: 0;
+			overflow-x: hidden;
+			padding-bottom: 40px
+		}
+	}
+</style>
+
+<script type="text/javascript">
+	window.mytest = function () {
+		var isValid = confirm('Are You sure want to delete this book ?');
+		if (!isValid) { event.preventDefault(); alert('It wont delete!'); }
+	}
+</script>

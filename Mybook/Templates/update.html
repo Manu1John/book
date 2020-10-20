@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/update.css' %}">
+</head>
+<body class="body">
+  <div class="condainer"> 
+    <div class="row">
+     <div class="col-md-6">
+    <h2><center>Edit BOOKS</center></h2>
+    
+<form action="{% url 'update_books' booklist.id %}" method="POST" enctype="multipart/form-data" style="display: inline;" onsubmit="window.mytest()">
+    {% csrf_token %}
+    <div class="form-group">
+       <label>Id</label>
+       <input type="number" class="form-control" id="" aria-describedby="" value="{{booklist.id}}" name="id">
+    </div>
+
+    <div class="form-group">
+      <label>Book</label>
+      <input type="text" class="form-control" id="" aria-describedby="" value="{{booklist.book_name}}" name="bookname">
+    </div>
+    <div class="form-group">
+      <label>Author</label>
+      <input type="text" class="form-control" id="" value="{{booklist.author}}" name="author">
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <input type="text" class="form-control" id="1" aria-describedby="" value="{{booklist.category}}" name="category">
+    </div>
+    <div class="form-group">
+      <label>Quantity</label>
+      <input type="number" class="form-control" id=""  name="quantity" value="{{booklist.quantity}}">
+    </div>
+    <div class="form-group">
+      <label>Language</label>
+      <input type="text" class="form-control" id="" value="{{booklist.language}}" name="language">
+    </div>
+    <div class="form-group">
+      <label>Pages</label>
+      <input type="number" class="form-control" id="1" aria-describedby="" value="{{booklist.pages}}" name="pages">
+    </div>
+    <div class="form-group">
+      <label>Summary</label>
+      <input type="text" class="form-control" id="" aria-describedby="" value="{{booklist.summary}}" name="summary">
+    </div>
+    <div class="form-group">
+      <label>book_published</label>
+      <input type="number" class="form-control" id="" value="{{booklist.book_published}}" name="book_published">
+    </div>
+    <div class="form-group">
+      <label>image</label>
+      <input type="file" class="form-control" name="myfile" onchange="viewimage(event)">
+    </div>
+    <div class="form-group">
+      <label>image</label>
+      <input type="file" class="form-control" name="mfile" onchange="view(event)">
+    </div>
+    
+    <center>
+    <button class="btn" type="submit>" class="btn btn-primary" >Edit</button>
+    </center>
+  </form>
+  </div>
+  <div class="col-md-6">
+    <img src="/img/{{ booklist.image }}" alt="" class="imgedit" id="imageview">
+
+    <img src="/img/{{ booklist.image }}" alt="" class="imgedit" id="imgview">
+  </div>
+  </div>
+</div>
+    
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+<script type="text/javascript">
+	window.mytest = function() {
+		 var isValid = confirm ('Are You sure want to edit this book ?');
+       if (!isValid) { event.preventDefault(); alert('It wont Edit!');}}
+</script>
+<script>
+  function viewimage(event){
+    document.getElementById('imageview').src = URL.createObjectURL(event.target.files[0])
+  }
+
+  function view(event){
+    document.getElementById('imgview').src = URL.createObjectURL(event.target.files[0]) 
+
+  }
+</script>

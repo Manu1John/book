@@ -1,0 +1,38 @@
+
+
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/mobile.css' %}">
+    <link rel="stylesheet" href="{% static 'js/mobile.js' %}">
+</head>
+<body>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<form action="{% url 'otp' %}" method="POST">
+{% csrf_token %}
+  <label>
+    <p class="label-txt">ENTER OTP </p>
+    <input type="text" class="input" name="otp">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+
+  </label>
+  <button type="submit">submit</button>
+  <div>
+    {% for message in messages %}
+    <h4 style="color: blue;">{{ message }}</h4>
+    {% endfor %}
+</div>
+</form>
+</body>
+</html>
